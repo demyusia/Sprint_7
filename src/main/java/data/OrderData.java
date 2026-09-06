@@ -7,8 +7,8 @@ import java.time.LocalDate;
 public class OrderData {
 
     static Faker user = new Faker();
-    public static final String FIRSTNAME = user.name().firstName();
-    public static final String LASTNAME = user.name().lastName();
+    public static final String CLIENT_FIRSTNAME = user.name().firstName();
+    public static final String CLIENT_LASTNAME = user.name().lastName();
     public static final String ADDRESS = "Москва, Большая Грузинская улица, дом 1, строение 1";
     public static final String METRO_STATION = "2";
     public static final String PHONE = "89998887766";

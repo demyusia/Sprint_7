@@ -14,7 +14,6 @@ public class OrderSteps {
     @Step("Create order")
     public static Response createOrder(OrderModel order) {
         return given()
-//                .log().all()
                 .contentType(ContentType.JSON)
                 .body(order)
                 .when()
@@ -43,7 +42,6 @@ public class OrderSteps {
     @Step("Get order by track number")
     public static Response getOrderByTrackNumber(Integer track) {
         return given()
-//                .log().all()
                 .queryParam("t", track)
                 .get(GET_ORDER_BY_TRACK)
                 .then()
@@ -53,7 +51,6 @@ public class OrderSteps {
     @Step("Accept order")
     public static Response acceptOrder(Integer id, Integer courierId) {
         return given()
-//                .log().all()
                 .contentType(ContentType.JSON)
                 .pathParam("id", id)
                 .queryParam("courierId", courierId)
@@ -66,7 +63,6 @@ public class OrderSteps {
     @Step("Get list of orders")
     public static Response getOrderList() {
         return given()
-//                .log().all()
                 .contentType(ContentType.JSON)
                 .get(GET_ORDER_LIST)
                 .then()

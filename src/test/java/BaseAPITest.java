@@ -4,6 +4,11 @@ import model.OrderModel;
 import org.junit.After;
 import org.junit.Before;
 
+import java.util.Arrays;
+
+import static data.CourierData.*;
+import static data.OrderData.*;
+
 import static steps.CourierSteps.deleteCourier;
 import static steps.CourierSteps.loginCourier;
 import static steps.OrderSteps.cancelOrder;
@@ -16,8 +21,8 @@ public class BaseAPITest {
     @Before
     public void setUp() {
         RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru/";
-        courier = null;
-        order = null;
+        courier = new CourierModel(LOGIN, PASSWORD, COURIER_FIRSTNAME);
+        order = new OrderModel(CLIENT_FIRSTNAME, CLIENT_LASTNAME, ADDRESS, METRO_STATION, PHONE, RENT_TIME, DELIVERY_DATE, COMMENT, Arrays.asList(BLACK_COLOUR));
     }
 
     @After
@@ -26,13 +31,13 @@ public class BaseAPITest {
             try {
                 int idCourier = loginCourier(courier).path("id");
                 deleteCourier(idCourier);
-            } catch (RuntimeException e) {
+            } catch (Throwable t) {
             }
         }
         if (order != null) {
             try {
                 cancelOrder(order.getTrack());
-            } catch (RuntimeException e) {
+            } catch (Throwable t) {
             }
         }
     }

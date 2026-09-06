@@ -20,6 +20,4 @@ public class CourierModel {
         this.firstName = null;
     }
 
-//    public CourierModel() {
-//    }
 }

@@ -1,18 +1,10 @@
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
-import model.OrderModel;
 
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
-import java.util.Arrays;
-
-import static data.OrderData.*;
-import static data.OrderData.COMMENT;
-import static data.OrderData.DELIVERY_DATE;
-import static data.OrderData.METRO_STATION;
-import static data.OrderData.PHONE;
-import static data.OrderData.RENT_TIME;
+import static org.apache.http.HttpStatus.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static steps.OrderSteps.createOrder;
@@ -24,12 +16,10 @@ public class GetOrderByTrackNumberTests extends BaseAPITest{
     @DisplayName("Get order by correct track number. Check status code and body")
     @Description("You can get order by correct track number. Status code 200")
     public void checkGettingOrderByCorrectTrackNumber() {
-        order = new OrderModel(FIRSTNAME, LASTNAME, ADDRESS, METRO_STATION, PHONE, RENT_TIME, DELIVERY_DATE, COMMENT, Arrays.asList(BLACK_COLOUR));
         order.setTrack(createOrder(order).path("track"));
         getOrderByTrackNumber(order.getTrack())
                 .then()
-//                .log().all()
-                .statusCode(200)
+                .statusCode(SC_OK)
                 .body("order.id", notNullValue())
                 .body("order.firstName", equalTo(order.getFirstName()))
                 .body("order.lastName", equalTo(order.getLastName()))
@@ -56,8 +46,7 @@ public class GetOrderByTrackNumberTests extends BaseAPITest{
     public void checkGettingOrderWithWrongTrackNumber() {
         getOrderByTrackNumber(536312130)
                 .then()
-//                .log().all()
-                .statusCode(404)
+                .statusCode(SC_NOT_FOUND)
                 .body("message", equalTo("Заказ не найден"));
     }
 
@@ -67,8 +56,7 @@ public class GetOrderByTrackNumberTests extends BaseAPITest{
     public void checkGettingOrderWithoutTrackNumber() {
         getOrderByTrackNumber(null)
                 .then()
-//                .log().all()
-                .statusCode(400)
+                .statusCode(SC_BAD_REQUEST)
                 .body("message", equalTo("Недостаточно данных для поиска"));
     }
 }

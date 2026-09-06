@@ -2,6 +2,7 @@ import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.Test;
 
+import static org.apache.http.HttpStatus.SC_OK;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static steps.OrderSteps.getOrderList;
 
@@ -13,8 +14,7 @@ public class GetOrderListTests extends BaseAPITest{
     public void checkGettingOrderList() {
         getOrderList()
                 .then()
-//                .log().all()
-                .statusCode(200)
+                .statusCode(SC_OK)
                 .body("orders", notNullValue())
                 .body("pageInfo", notNullValue())
                 .body("availableStations", notNullValue());

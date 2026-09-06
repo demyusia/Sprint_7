@@ -14,7 +14,6 @@ public class CourierSteps {
     @Step("Create new courier")
     public static Response createCourier(CourierModel courier) {
         return given()
-//                .log().all()
                 .contentType(ContentType.JSON)
                 .body(courier)
                 .when()
@@ -29,7 +28,6 @@ public class CourierSteps {
         json.addProperty("login", courier.getLogin());
         json.addProperty("password", courier.getPassword());
         return given()
-//                .log().all()
                 .contentType(ContentType.JSON)
                 .body(json)
                 .when()
@@ -42,7 +40,6 @@ public class CourierSteps {
     public static Response deleteCourier(Integer id) {
         if (id != null) {
             return given()
-//                    .log().all()
                     .pathParam("id", id)
                     .when()
                     .delete(COURIER_DELETE_PATH, id)
